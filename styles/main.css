@@ -188,9 +188,9 @@ body {
     display: flex;
     align-items: flex-start; 
     height: 500px; */
-
-    max-height: 660px;
-    min-height: 660px;
+    padding-top: 10px;
+    max-height: 670px;
+    min-height: 670px;
     display: flex;
     overflow-x: auto;
     
