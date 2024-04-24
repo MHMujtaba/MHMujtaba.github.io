@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function createCertificateTile(certificate) {
         const certificateTile = document.createElement('div');
-        certificateTile.classList.add('project-tile');
+        certificateTile.classList.add('certifications-tile');
         if (certificate['Link']=="NA") {
             certificateTile.innerHTML = `
           <h3 style="color:orangered">${certificate['Name']}</h3>

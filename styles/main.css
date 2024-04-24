@@ -72,7 +72,7 @@ body {
   .summary-container{
     padding: 20px;
     border-radius: 10px;
-    height: 200px;
+    /* height: 200px; */
     font-size: 18px;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
     /* width: 40%; */
@@ -255,4 +255,43 @@ body {
     text-wrap: wrap;
     overflow-y: auto;
     color: #fff;
+  }
+
+  .certifications-tile{
+    padding: 30px;
+    background-color: rgb(0, 0, 0,0.8); /* White background for tiles */
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0 0 10px rgb(255, 255, 255,0.2); /* Shadow for depth */
+    margin: 10px; /* Spacing between tiles */
+    display: inline-block; /* Display tiles in a row */
+    text-align: start; /* Center content horizontally */
+    font-size: 18px; /* Example font size for tile content */
+    border: 2px solid orangered ;
+    width: 400px;
+    /* height: 500px; */
+  }
+  .certifications-tile h3 {
+    color: #fff;
+  }
+  .certifications-tile h4 {
+    color: #fff;
+  }
+  
+  .certifications-tile p {
+    color: #fff;
+    width: 400px;
+  }
+  
+  .certifications-tile a {
+    color: #fff;
+    text-decoration: none;
+  }
+  .certifications-tile:hover{
+    /* background-color: #555;
+    box-shadow: 0 0 10px rbga(255,255,255,0.5); */
+    transform: scale(1.05); /* Scale up on hover for visual feedback */
+    background-color: rgb(0, 0, 0,1);
+    transition: transform 0.3s ease; /* Smooth transition effect */
+    color: #fff;
+
   }
