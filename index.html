@@ -4,8 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portifolio</title>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" >
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
+    <script src="scripts/main.js" defer></script>
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#certfications">Certifications</a>
+        <a href="#about">Contact Me</a>
+      </div>
     
+      <div id="home" class="section home">
+        <div class="intro-container">
+            <b><p>Hi, I'm </p><p style="color: orangered;" >Mujtaba Mohimtulay</p></b>
+            <p>Software Engineer and AI/ML enthusiast</p>
+        </div>
+      </div>
+
+      <div id="skills" class="section skills">
+        <h2>My Skills</h2>
+        <div id="skills-container" class="skills-container" style="padding-top: 50px;">
+            <div id="icon-cont" class="icon-cont"><i class="devicon-html5-plain colored icon"></i><p style="font-size: 20px; padding-top: 10px;">HTML</p></div>
+            <div id="icon-cont" class="icon-cont"><i class="devicon-css3-plain colored icon"></i><p style="font-size: 20px; padding-top: 10px;">CSS</p></div>
+            <div id="icon-cont" class="icon-cont"><i class="devicon-javascript-plain colored icon"></i><p style="font-size: 20px; padding-top: 10px;">JavaScript</p></div>
+            <div id="icon-cont" class="icon-cont"><i class="devicon-python-plain colored icon"></i><p style="font-size: 20px; padding-top: 10px;">Python</p></div>
+            <div id="icon-cont" class="icon-cont"><i class="devicon-flutter-plain colored icon"></i><p style="font-size: 20px; padding-top: 10px;">Flutter</p></div>
+            <div id="icon-cont" class="icon-cont"><i class="devicon-django-plain colored icon"></i><p style="font-size: 20px; padding-top: 10px;">Django</p></div>
+            <div id="icon-cont" class="icon-cont"><i class="devicon-tensorflow-line-wordmark colored icon"></i><p style="font-size: 20px; padding-top: 10px;">TensorFlow/Keras</p></div>
+            <div id="icon-cont" class="icon-cont"><i class="devicon-git-plain-wordmark colored icon"></i><p style="font-size: 20px; padding-top: 10px;">Git</p></div>         
+            <div id="icon-cont" class="icon-cont"><i class="devicon-mysql-plain icon"></i><p style="font-size: 20px; padding-top: 10px;">MySQL</p></div>
+            <div id="icon-cont" class="icon-cont"><i class="devicon-postgresql-plain-wordmark colored icon"></i><p style="font-size: 20px; padding-top: 10px;">PostgreSQL</p></div>
+            <div id="icon-cont" class="icon-cont"><i class="devicon-c-line-wordmark colored icon"></i><p style="font-size: 20px; padding-top: 10px;">C</p></div>
+            <div id="icon-cont" class="icon-cont"><i class="devicon-csharp-line-wordmark colored icon"></i><p style="font-size: 20px; padding-top: 10px;">C#</p></div>
+        </div>
+      </div>
+
+      <div id="projects" class="section projects">
+        <h2>My Projects</h2>
+        <div id="projects-container" class="projects-container"></div>
+      </div>
+
+      <div id="certfications" class="section certfications">
+        <h2>My Certifications</h2>
+        <div id="certfications-container" class="certfications-container"></div>
+      </div>
+    
+      <div id="about" class="section contact">
+        <h2>Contact Me</h2>
+        <div class="contact-tile">
+        <p><i class="fa fa-phone"></i> +971509787221</p>
+        <p><a href="mailto:mujtaba.mohimtulay@gmail.com"><i class="fa fa-envelope" translate="yes"> </i> mujtaba.mohimtulay@gmail.com</a></p>
+        <p><a href="https://linkedin.com/in/mujtaba-mohimtulay"><i class="fa fa-linkedin"> </i> Mujtaba Mohimtulay</a></p>
+        <p><a href="https://github.com/MHMujtaba"><i class="fa fa-github"> </i> MHMujtaba</a></p>
+               
+        </div>
+      </div>
+    
+      <script>
+        // Smooth scrolling for navbar links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+    
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+              behavior: 'smooth'
+            });
+          });
+        });
+      </script> 
 </body>
 </html>
