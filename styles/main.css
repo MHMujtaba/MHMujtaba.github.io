@@ -267,7 +267,7 @@ body {
     text-align: start; /* Center content horizontally */
     font-size: 18px; /* Example font size for tile content */
     border: 2px solid orangered ;
-    width: 400px;
+    width: min(400px,100%);
     /* height: 500px; */
   }
   .certifications-tile h3 {
