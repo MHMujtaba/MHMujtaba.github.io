@@ -77,11 +77,15 @@ document.addEventListener('DOMContentLoaded', function () {
       if (project['Project Link']=="NA") {
         projectTile.innerHTML = `
         <h3 style="color:orangered">${project['Project Name']}</h3>
+        <p><i style="color:orangered">Type: </i> ${project['Type']}</p>
+        <p><i style="color:orangered">Tech Stack: </i> ${project['Languages Libs Used']}</p>
         <p>${displaySentences(project['Description'])}</p>
       `;
       } else {
         projectTile.innerHTML = `
         <h3 style="color:orangered">${project['Project Name']}</h3>
+        <p><i style="color:orangered">Type: </i> ${project['Type']}</p>
+        <p><i style="color:orangered">Tech Stack: </i> ${project['Languages Libs Used']}</p>
         <p>${displaySentences(project['Description'])}</p>
         <a style="text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); border-radius: 30px; background-color:  rgb(255, 255, 255,0.2); padding :10px;" href="${project['Project Link']}">View Project  <i class="fa fa-external-link"> </i></a>
       `;
