@@ -45,6 +45,7 @@ body {
      */
     color: #080808;
     transition: transform 0.3s ease;
+    /* text-decoration:wavy; */
   }
 
   .section {
@@ -57,13 +58,37 @@ body {
     background-color: transparent;
     height: 100%;
     font-size: larger;
+    /* display: flex; */
   }
   .intro-container{
     padding: 20px;
     border-radius: 10px;
     height: 100%;
     font-size: 36px;
-    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.5);
+    /* text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.5); */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);;
+    /* width: 60%; */
+  }
+  .summary-container{
+    padding: 20px;
+    border-radius: 10px;
+    height: 200px;
+    font-size: 18px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    /* width: 40%; */
+    /* background-color: lightgray; */
+
+    background-color: rgb(0, 0, 0,0.7);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: 0 auto;
+    /* border: 2px solid orangered ; */
+    box-shadow: 0 0 10px rgb(255, 255, 255,0.2);
+    border: 2px solid orangered;
+  }
+  .summary-container h3{
+    color: orangered;
   }
   
   .skills {
@@ -153,30 +178,59 @@ body {
     transition: transform 0.3s ease; 
   }
   .projects-container {
-    display: grid;
+    /* display: grid;
     grid-template-columns: repeat(3, minmax(300px, 1fr));
-    grid-gap: 20px;
-    padding: 20px;
+    grid-gap: 20px; */
+    /* padding: 50px; */
+    /* width: 100%; 
+    overflow-x: auto; 
+    white-space: wrap;
+    display: flex;
+    align-items: flex-start; 
+    height: 500px; */
+
+    max-height: 660px;
+    min-height: 660px;
+    display: flex;
+    overflow-x: auto;
+    
+    /* overflow-x: hidden; */
+    
+  }
+  .projects-container::-webkit-scrollbar{
+    width: 0;
   }
   
   .project-tile {
-    padding: 50px;
-    background-color: rgb(0, 0, 0,0.5); /* White background for tiles */
+    /* display: inline-block; */
+    padding: 30px;
+    background-color: rgb(0, 0, 0,0.8); /* White background for tiles */
     border-radius: 20px; /* Rounded corners */
     box-shadow: 0 0 10px rgb(255, 255, 255,0.2); /* Shadow for depth */
     margin: 10px; /* Spacing between tiles */
     display: inline-block; /* Display tiles in a row */
-    text-align: center; /* Center content horizontally */
+    text-align: start; /* Center content horizontally */
     font-size: 18px; /* Example font size for tile content */
     border: 2px solid orangered ;
+    width: 400px;
+    height: 500px;
+    
+    /* font-family:fantasy; */
+    /* text-wrap: wrap; */
+    /* overflow-y: auto; */
+    /* align-items: flex-start;  */
     
   }
   .project-tile h3 {
     color: #fff;
   }
+  .project-tile h4 {
+    color: #fff;
+  }
   
   .project-tile p {
     color: #fff;
+    width: 400px;
   }
   
   .project-tile a {
@@ -187,10 +241,18 @@ body {
     /* background-color: #555;
     box-shadow: 0 0 10px rbga(255,255,255,0.5); */
     transform: scale(1.05); /* Scale up on hover for visual feedback */
-    background-color: rgb(0, 0, 0,0.9);
+    background-color: rgb(0, 0, 0,1);
     transition: transform 0.3s ease; /* Smooth transition effect */
+    color: #fff;
 
   }
   .project-tile a:hover {
     text-decoration: underline;
+  }
+
+  .description-container {
+    max-height: 200px;
+    text-wrap: wrap;
+    overflow-y: auto;
+    color: #fff;
   }

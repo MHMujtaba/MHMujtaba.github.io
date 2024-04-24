@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
                 
         // Iterate over each sentence and create a list item for it
-        var totalString = "<ul>"
+        var totalString = "<ul class='description-container'>"
         sentences.forEach(function(sentence) {
             // Create a new list item element
             var li = "<li>"
@@ -76,17 +76,17 @@ document.addEventListener('DOMContentLoaded', function () {
       projectTile.classList.add('project-tile');
       if (project['Project Link']=="NA") {
         projectTile.innerHTML = `
-        <h3 style="color:orangered">${project['Project Name']}</h3>
-        <p><i style="color:orangered">Type: </i> ${project['Type']}</p>
-        <p><i style="color:orangered">Tech Stack: </i> ${project['Languages Libs Used']}</p>
+        <h3 style="color:orangered; ">${project['Project Name']}</h3>
+        <p><i style="color:orangered; ">Type: </i> ${project['Type']}</p>
+        <p><i style="color:orangered; ">Tech Stack: </i> ${project['Languages Libs Used']}</p>
         <p>${displaySentences(project['Description'])}</p>
       `;
       } else {
         projectTile.innerHTML = `
         <h3 style="color:orangered">${project['Project Name']}</h3>
-        <p><i style="color:orangered">Type: </i> ${project['Type']}</p>
-        <p><i style="color:orangered">Tech Stack: </i> ${project['Languages Libs Used']}</p>
-        <p>${displaySentences(project['Description'])}</p>
+        <p ><i style="color:orangered; ">Type: </i> ${project['Type']}</p>
+        <p ><i style="color:orangered; ">Tech Stack: </i> ${project['Languages Libs Used']}</p>
+        <p >${displaySentences(project['Description'])}</p>
         <a style="text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); border-radius: 30px; background-color:  rgb(255, 255, 255,0.2); padding :10px;" href="${project['Project Link']}">View Project  <i class="fa fa-external-link"> </i></a>
       `;
       }
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (certificate['Link']=="NA") {
             certificateTile.innerHTML = `
           <h3 style="color:orangered">${certificate['Name']}</h3>
-          <h4>${certificate['Date']}</h4>
+          <h4 style="color:white">${certificate['Date']}</h4>
           
         `;
         } else {
