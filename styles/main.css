@@ -295,3 +295,44 @@ body {
     color: #fff;
 
   }
+
+@media screen and (max-width: 600px){
+  
+  .navbar{
+    font-size: small;
+  }
+  h1{
+    font-size: medium;
+  }
+  .projects-container{
+    display: inline;
+  }
+  .project-tile{
+    width: 300px;
+  }
+  .project-tile p {
+    width: 200px;
+  }
+  .certifications-tile{
+    width: 300px;
+  }
+  .summary-container{
+    scale: 0.8;
+  }
+  .contact-tile{
+    width: 300px;
+  }
+  .section{
+    padding-top: 10px;
+  }
+  .skills-container .icon{
+    font-size: x-large;
+  }
+  .skills-container{
+    grid-template-columns: repeat(2, minmax(130px,1fr));
+  }
+
+
+
+  
+}
