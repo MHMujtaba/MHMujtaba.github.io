@@ -308,19 +308,20 @@ body {
     display: inline;
   }
   .project-tile{
-    width: 300px;
+    width: 270px;
+    height: auto;
   }
   .project-tile p {
     width: 200px;
   }
   .certifications-tile{
-    width: 300px;
+    width: 270px;
   }
   .summary-container{
     scale: 0.8;
   }
   .contact-tile{
-    width: 300px;
+    width: 270px;
   }
   .section{
     padding-top: 10px;
