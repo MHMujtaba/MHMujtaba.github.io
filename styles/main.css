@@ -2,6 +2,7 @@ html{
   height: 100%;
 }
 body {
+  background-color: #080808;
     margin: 0;
     font-family: 'Poppins', sans-serif;
     /* background-color: #080808; */
@@ -10,7 +11,7 @@ body {
     background-attachment: fixed;
     background-attachment: fixed;
     background-position: center;
-    background-size: cover;
+    background-size: 100%;
     height: 100%;
     cursor: url('https://raw.githubusercontent.com/coob113/fancy-cursors/master/pixelated1.png'), auto !important;}
     
@@ -21,19 +22,24 @@ a {cursor: url('https://raw.githubusercontent.com/coob113/fancy-cursors/master/p
 }
 .content {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 100%;
+  left: 100%;
+  transform: translate(50%, 50%);
   text-align: center;
   color: white;
 }
 .bg-video {
   position: fixed;
+  top: 0;
   right: 0;
+  left: 0;
   bottom: 0;
-  width: 100%;
+  /* width: 100%; */
   /* height: 100%; */
-  min-height: 100%;
+  /* min-width: 100%; */
+  min-height: 100% ;
+  /* max-height: 100%; */
+  max-width: 100%;
   z-index: -1;
   filter: brightness(0.5);
 }
@@ -100,7 +106,7 @@ a {cursor: url('https://raw.githubusercontent.com/coob113/fancy-cursors/master/p
   }
   .home {
     background-color: transparent;
-    height: 100%;
+    /* height: 100%; */
     font-size: larger;
     /* display: flex; */
   }
@@ -347,16 +353,18 @@ a {cursor: url('https://raw.githubusercontent.com/coob113/fancy-cursors/master/p
   
   
 
-@media screen and (max-width: 768px){
+@media (max-aspect-ratio: 1/1){
   
   .bg-video {
     display: none;
 }
 
 .mobile-video {
+  
   filter: brightness(0.5);
     display: inline-block;
     position: fixed;
+    
     z-index: -1;
 }
 
@@ -370,10 +378,11 @@ a {cursor: url('https://raw.githubusercontent.com/coob113/fancy-cursors/master/p
   }
   .projects-container{
     display: inline;
+    
   }
   .project-tile{
     width: 270px;
-    height: auto;
+    height: max-content;
   }
   .project-tile p {
     width: 200px;
