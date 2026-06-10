@@ -1014,6 +1014,58 @@
     }
 
     /* ── CONTACT ── */
+    .ai-inline-summary {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+      animation: fadeUp 0.8s 0.38s ease both;
+    }
+
+    .ai-inline-label {
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .ai-inline-providers {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .ai-provider-logo-link {
+      width: 38px;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.045);
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s, background 0.2s;
+    }
+
+    .ai-provider-logo-link:hover,
+    .ai-provider-logo-link:focus-visible {
+      border-color: rgba(0,229,255,0.45);
+      background: rgba(0,229,255,0.08);
+      outline: none;
+      transform: translateY(-2px);
+    }
+
+    .ai-provider-logo {
+      width: 22px;
+      height: 22px;
+      display: block;
+      border-radius: 5px;
+    }
+
     #contact { padding: 120px 0; }
 
     .contact-grid {
@@ -1200,6 +1252,10 @@
           <div class="hero-actions">
             <a class="btn-primary" href="#projects">View Projects →</a>
             <a class="btn-ghost" href="#contact">Get in Touch</a>
+          </div>
+          <div class="ai-inline-summary" aria-label="Ask an AI provider to summarize this portfolio">
+            <span class="ai-inline-label">Summarize with</span>
+            <div class="ai-inline-providers" id="ai-provider-links"></div>
           </div>
         </div>
 
@@ -1620,6 +1676,56 @@
     });
 
     /* ── PROJECT EMOJI MAP (type → emoji) ── */
+    const PORTFOLIO_URL = 'https://mhmujtaba.github.io';
+    const AI_SUMMARY_PROMPT = `Visit ${PORTFOLIO_URL} and write a clear, engaging summary of Mujtaba Mohimtulay based on the portfolio website.
+
+Include:
+- His AI/ML engineering focus
+- His relevant skills and technologies
+- His work experience and strongest projects
+- Who might want to work with him
+- What makes his background useful or distinctive
+
+Write in a way that is informative, positive, and easy to understand, without sounding like an advertisement or exaggeration.
+
+Keep it around 120-180 words, suitable for an About section, recruiter note, or AI-generated summary footer.
+
+Use ${PORTFOLIO_URL} as the citation/source.`;
+
+    const AI_PROVIDERS = [
+      {
+        name: 'OpenAI',
+        logo: 'https://www.google.com/s2/favicons?domain=openai.com&sz=64',
+        url: prompt => `https://chatgpt.com/?q=${encodeURIComponent(prompt)}`,
+      },
+      {
+        name: 'Claude',
+        logo: 'https://www.google.com/s2/favicons?domain=claude.ai&sz=64',
+        url: prompt => `https://claude.ai/new?q=${encodeURIComponent(prompt)}`,
+      },
+      {
+        name: 'Perplexity',
+        logo: 'https://www.google.com/s2/favicons?domain=perplexity.ai&sz=64',
+        url: prompt => `https://www.perplexity.ai/search/new?q=${encodeURIComponent(prompt)}`,
+      },
+      //{
+      //  name: 'Gemini',
+      //  logo: 'https://www.google.com/s2/favicons?domain=gemini.google.com&sz=64',
+      //  url: prompt => `https://gemini.google.com/app?prompt=${encodeURIComponent(prompt)}`,
+      //},
+    ];
+
+    function initAISummaryLinks() {
+      const strip = document.getElementById('ai-provider-links');
+      if (!strip) return;
+
+      strip.innerHTML = AI_PROVIDERS.map(provider => `
+        <a class="ai-provider-logo-link" href="${provider.url(AI_SUMMARY_PROMPT)}" target="_blank" rel="noopener" aria-label="Ask ${escapeHTML(provider.name)} to summarize Mujtaba Mohimtulay's portfolio" title="${escapeHTML(provider.name)}">
+          <img class="ai-provider-logo" src="${escapeHTML(provider.logo)}" alt="" loading="lazy">
+        </a>
+      `).join('');
+    }
+
     const TYPE_ICONS = {
       'computer vision': '👁️',
       'nlp': '💬',
@@ -1843,6 +1949,8 @@
         console.info('projects.csv not found — showing hardcoded projects only.', err.message);
       }
     }
+
+    initAISummaryLinks();
 
     // Kick off CSV load
     loadProjectsCSV();
