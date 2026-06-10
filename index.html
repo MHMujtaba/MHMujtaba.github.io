@@ -183,6 +183,10 @@
     }
 
     .ai-walkthrough-controller.is-visible { display: block; }
+    .ai-walkthrough-controller.is-minimized {
+      width: min(300px, calc(100vw - 40px));
+      padding: 12px 14px;
+    }
 
     .ai-walkthrough-meta {
       display: flex;
@@ -197,11 +201,49 @@
       text-transform: uppercase;
     }
 
+    .ai-walkthrough-controller.is-minimized .ai-walkthrough-meta {
+      margin-bottom: 0;
+    }
+
+    .ai-walkthrough-meta-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
     .ai-walkthrough-label {
       color: var(--accent);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    .ai-walkthrough-toggle {
+      min-height: 28px;
+      padding: 5px 9px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: rgba(255,255,255,0.045);
+      color: var(--muted);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      text-transform: none;
+      letter-spacing: 0;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+
+    .ai-walkthrough-toggle:hover,
+    .ai-walkthrough-toggle:focus-visible {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(0,229,255,0.08);
+      outline: none;
+    }
+
+    .ai-walkthrough-controller.is-minimized .ai-walkthrough-body {
+      display: none;
     }
 
     .ai-walkthrough-caption {
@@ -1099,6 +1141,9 @@
       .ai-walkthrough-controller {
         width: calc(100vw - 28px);
         padding: 14px;
+      }
+      .ai-walkthrough-controller.is-minimized {
+        width: min(300px, calc(100vw - 28px));
       }
       .ai-walkthrough-start { padding: 10px 14px; }
       .ai-walkthrough-caption { min-height: 88px; font-size: 0.88rem; }

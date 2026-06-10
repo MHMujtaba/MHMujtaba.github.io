@@ -20,6 +20,7 @@
     activeSection: null,
     lastScrolledSelector: '',
     status: '',
+    minimized: false,
   };
 
   const prefersReducedMotion = () =>
@@ -44,20 +45,27 @@
   controller.innerHTML = `
     <div class="ai-walkthrough-meta">
       <span class="ai-walkthrough-label">AI Walkthrough</span>
-      <span class="ai-walkthrough-count">0 / 0</span>
+      <div class="ai-walkthrough-meta-actions">
+        <span class="ai-walkthrough-count">0 / 0</span>
+        <button class="ai-walkthrough-toggle" type="button" aria-label="Minimize AI walkthrough panel">
+          Minimize
+        </button>
+      </div>
     </div>
-    <div class="ai-walkthrough-caption"></div>
-    <div class="ai-walkthrough-status" role="status"></div>
-    <div class="ai-walkthrough-progress" aria-hidden="true">
-      <span class="ai-walkthrough-progress-fill"></span>
-    </div>
-    <div class="ai-walkthrough-controls">
-      <button type="button" data-action="pause" aria-label="Pause walkthrough audio">Pause</button>
-      <button type="button" data-action="resume" aria-label="Resume walkthrough audio">Resume</button>
-      <button type="button" data-action="previous" aria-label="Go to previous walkthrough section">Previous</button>
-      <button type="button" data-action="next" aria-label="Go to next walkthrough section">Next</button>
-      <button type="button" data-action="restart" aria-label="Restart AI walkthrough">Restart</button>
-      <button type="button" data-action="exit" aria-label="Exit AI walkthrough">Exit</button>
+    <div class="ai-walkthrough-body">
+      <div class="ai-walkthrough-caption"></div>
+      <div class="ai-walkthrough-status" role="status"></div>
+      <div class="ai-walkthrough-progress" aria-hidden="true">
+        <span class="ai-walkthrough-progress-fill"></span>
+      </div>
+      <div class="ai-walkthrough-controls">
+        <button type="button" data-action="pause" aria-label="Pause walkthrough audio">Pause</button>
+        <button type="button" data-action="resume" aria-label="Resume walkthrough audio">Resume</button>
+        <button type="button" data-action="previous" aria-label="Go to previous walkthrough section">Previous</button>
+        <button type="button" data-action="next" aria-label="Go to next walkthrough section">Next</button>
+        <button type="button" data-action="restart" aria-label="Restart AI walkthrough">Restart</button>
+        <button type="button" data-action="exit" aria-label="Exit AI walkthrough">Exit</button>
+      </div>
     </div>
   `;
 
@@ -68,6 +76,7 @@
     quick: launcher.querySelector('.ai-walkthrough-quick'),
     label: controller.querySelector('.ai-walkthrough-label'),
     count: controller.querySelector('.ai-walkthrough-count'),
+    toggle: controller.querySelector('.ai-walkthrough-toggle'),
     caption: controller.querySelector('.ai-walkthrough-caption'),
     status: controller.querySelector('.ai-walkthrough-status'),
     progressFill: controller.querySelector('.ai-walkthrough-progress-fill'),
@@ -88,13 +97,13 @@
     }
   }
 
-  function scrollToSelector(selector) {
+  function scrollToSelector(selector, block = 'center') {
     const target = getElement(selector);
     if (!target) return false;
 
     target.scrollIntoView({
       behavior: prefersReducedMotion() ? 'auto' : 'smooth',
-      block: 'center',
+      block,
       inline: 'nearest',
     });
     return true;
@@ -146,9 +155,18 @@
     refs.caption.textContent = highlight.caption || (step ? step.caption : '');
 
     if (state.lastScrolledSelector !== highlight.selector) {
-      scrollToSelector(highlight.selector);
+      scrollToSelector(highlight.selector, 'center');
       state.lastScrolledSelector = highlight.selector;
     }
+  }
+
+  function syncMinimizedState() {
+    controller.classList.toggle('is-minimized', state.minimized);
+    refs.toggle.textContent = state.minimized ? 'Expand' : 'Minimize';
+    refs.toggle.setAttribute(
+      'aria-label',
+      state.minimized ? 'Expand AI walkthrough panel' : 'Minimize AI walkthrough panel'
+    );
   }
 
   function findActiveHighlight(step, time) {
@@ -289,12 +307,13 @@
     document.body.classList.add('walkthrough-active');
     controller.classList.add('is-visible');
     launcher.classList.add('is-hidden');
+    syncMinimizedState();
     setProgress(0);
 
     audio.src = step.audio;
     audio.load();
 
-    if (scrollToSelector(step.selector)) {
+    if (scrollToSelector(step.selector, 'start')) {
       state.lastScrolledSelector = step.selector;
     }
 
@@ -306,6 +325,7 @@
   function startWalkthrough(mode) {
     state.mode = mode === 'quick' ? 'quick' : 'full';
     state.steps = state.mode === 'quick' && quickSteps.length ? quickSteps : fullSteps;
+    state.minimized = false;
     goToStep(0);
   }
 
@@ -330,10 +350,12 @@
     state.paused = false;
     state.audioError = false;
     state.status = '';
+    state.minimized = false;
     document.body.classList.remove('walkthrough-active');
     clearHighlight();
     controller.classList.add('is-visible');
     launcher.classList.add('is-hidden');
+    syncMinimizedState();
     updateUI();
   }
 
@@ -349,11 +371,13 @@
     state.index = 0;
     state.status = '';
     state.lastScrolledSelector = '';
+    state.minimized = false;
 
     document.body.classList.remove('walkthrough-active');
     clearHighlight();
     controller.classList.remove('is-visible');
     launcher.classList.remove('is-hidden');
+    syncMinimizedState();
     setProgress(0);
     updateUI();
   }
@@ -393,6 +417,12 @@
     if (action === 'exit') exitWalkthrough();
   }
 
+  function toggleMinimized() {
+    if (!state.active && !state.completed) return;
+    state.minimized = !state.minimized;
+    syncMinimizedState();
+  }
+
   function handleKeyboard(event) {
     if (!state.active && !state.completed) return;
     if (event.metaKey || event.ctrlKey || event.altKey) return;
@@ -418,6 +448,7 @@
     exitWalkthrough();
     refs.start.removeEventListener('click', startFull);
     refs.quick.removeEventListener('click', startQuick);
+    refs.toggle.removeEventListener('click', toggleMinimized);
     refs.controls.removeEventListener('click', handleControlsClick);
     document.removeEventListener('keydown', handleKeyboard);
     window.removeEventListener('pagehide', exitWalkthrough);
@@ -439,6 +470,7 @@
 
   refs.start.addEventListener('click', startFull);
   refs.quick.addEventListener('click', startQuick);
+  refs.toggle.addEventListener('click', toggleMinimized);
   refs.controls.addEventListener('click', handleControlsClick);
   document.addEventListener('keydown', handleKeyboard);
   window.addEventListener('pagehide', exitWalkthrough);
