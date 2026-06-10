@@ -119,7 +119,195 @@
     section { position: relative; z-index: 1; }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
 
-    #home {
+    .ai-walkthrough-launcher {
+      position: fixed;
+      right: max(20px, env(safe-area-inset-right));
+      bottom: max(20px, env(safe-area-inset-bottom));
+      z-index: 980;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .ai-walkthrough-launcher.is-hidden { display: none; }
+
+    .ai-walkthrough-start,
+    .ai-walkthrough-quick {
+      border: 1px solid rgba(0,229,255,0.35);
+      background: rgba(8,12,16,0.88);
+      color: var(--text);
+      box-shadow: 0 18px 44px rgba(0,0,0,0.28), 0 0 0 1px rgba(255,255,255,0.04) inset;
+      backdrop-filter: blur(18px);
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s, background 0.2s;
+    }
+
+    .ai-walkthrough-start {
+      padding: 12px 18px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .ai-walkthrough-quick {
+      padding: 8px 12px;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .ai-walkthrough-start:hover,
+    .ai-walkthrough-quick:hover,
+    .ai-walkthrough-start:focus-visible,
+    .ai-walkthrough-quick:focus-visible {
+      border-color: var(--accent);
+      color: var(--accent);
+      outline: none;
+      transform: translateY(-2px);
+    }
+
+    .ai-walkthrough-controller {
+      position: fixed;
+      right: max(20px, env(safe-area-inset-right));
+      bottom: max(20px, env(safe-area-inset-bottom));
+      z-index: 1000;
+      width: min(420px, calc(100vw - 40px));
+      padding: 18px;
+      border: 1px solid rgba(0,229,255,0.32);
+      border-radius: 8px;
+      background: rgba(8,12,16,0.94);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.48), 0 0 36px rgba(0,229,255,0.08);
+      backdrop-filter: blur(22px);
+      display: none;
+    }
+
+    .ai-walkthrough-controller.is-visible { display: block; }
+
+    .ai-walkthrough-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .ai-walkthrough-label {
+      color: var(--accent);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .ai-walkthrough-caption {
+      min-height: 68px;
+      color: var(--text);
+      font-size: 0.93rem;
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+
+    .ai-walkthrough-status {
+      min-height: 20px;
+      margin-bottom: 12px;
+      color: #fbbf24;
+      font-size: 0.8rem;
+    }
+
+    .ai-walkthrough-progress {
+      height: 5px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      margin-bottom: 14px;
+    }
+
+    .ai-walkthrough-progress-fill {
+      display: block;
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width 0.16s linear;
+    }
+
+    .ai-walkthrough-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ai-walkthrough-controls button {
+      min-height: 36px;
+      padding: 8px 11px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: rgba(255,255,255,0.045);
+      color: var(--text);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+
+    .ai-walkthrough-controls button:hover:not(:disabled),
+    .ai-walkthrough-controls button:focus-visible:not(:disabled) {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(0,229,255,0.08);
+      outline: none;
+    }
+
+    .ai-walkthrough-controls button:disabled {
+      cursor: not-allowed;
+      opacity: 0.42;
+    }
+
+    body.walkthrough-active::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 900;
+      pointer-events: none;
+      background: rgba(3,6,10,0.64);
+    }
+
+    body.walkthrough-active .walkthrough-section-active {
+      z-index: 920;
+    }
+
+    .walkthrough-highlight {
+      position: relative;
+      z-index: 930 !important;
+      opacity: 1 !important;
+      outline: 2px solid rgba(0,229,255,0.95);
+      outline-offset: 8px;
+      border-radius: 8px;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.18),
+        0 0 32px rgba(0,229,255,0.34),
+        0 0 64px rgba(124,58,237,0.22);
+      transform: scale(1.015) !important;
+      transition: outline-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .ai-walkthrough-start,
+      .ai-walkthrough-quick,
+      .walkthrough-highlight {
+        transform: none !important;
+      }
+      .ai-walkthrough-progress-fill {
+        transition: none;
+      }
+    }
+
+    #hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -903,6 +1091,21 @@
       nav { padding: 0 20px; }
       .nav-links { display: none; }
       .container { padding: 0 20px; }
+      .ai-walkthrough-launcher,
+      .ai-walkthrough-controller {
+        right: 14px;
+        bottom: max(14px, env(safe-area-inset-bottom));
+      }
+      .ai-walkthrough-controller {
+        width: calc(100vw - 28px);
+        padding: 14px;
+      }
+      .ai-walkthrough-start { padding: 10px 14px; }
+      .ai-walkthrough-caption { min-height: 88px; font-size: 0.88rem; }
+      .ai-walkthrough-controls button {
+        flex: 1 1 calc(33.333% - 8px);
+        padding: 8px 7px;
+      }
       .hero-inner { grid-template-columns: 1fr; gap: 48px; }
       .hero-visual { order: -1; }
       .hero-card { width: 100%; max-width: 340px; }
@@ -923,7 +1126,7 @@
 
   <!-- NAV -->
   <nav>
-    <a class="nav-logo" href="#home">MM<span>.</span></a>
+    <a class="nav-logo" href="#hero">MM<span>.</span></a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
@@ -935,12 +1138,12 @@
   </nav>
 
   <!-- HERO -->
-  <section id="home">
+  <section id="hero">
     <div class="container">
       <div class="hero-inner">
         <div>
           <div class="hero-badge">Available for opportunities</div>
-          <h1 class="hero-title">
+          <h1 class="hero-title" id="hero-title">
             <span class="line">Building the</span>
             <span class="line accent-text">Intelligent</span>
             <span class="line">Future with AI</span>
@@ -960,7 +1163,7 @@
             <div class="hero-avatar">MM</div>
             <div class="hero-card-name">Mujtaba Mohimtulay</div>
             <div class="hero-card-role">// AI &amp; ML Engineer</div>
-            <div class="tech-pills">
+            <div class="tech-pills" id="hero-tags">
               <span class="pill">LLMs</span>
               <span class="pill">RAG</span>
               <span class="pill">Computer Vision</span>
@@ -968,7 +1171,7 @@
               <span class="pill">PyTorch</span>
               <span class="pill">Multi-Agent AI</span>
             </div>
-            <div class="stat-row">
+            <div class="stat-row" id="hero-stats">
               <div class="stat-box">
                 <span class="stat-num">2+</span>
                 <span class="stat-label">Years in AI</span>
@@ -1000,7 +1203,7 @@
         <div class="section-line"></div>
       </div>
       <div class="about-grid">
-        <div class="about-text reveal">
+        <div class="about-text reveal" id="about-summary">
           <h2 class="section-title">Passionate about AI that <span style="color:var(--accent)">actually works</span></h2>
           <p>
             I'm a <strong>Machine Learning Engineer and AI Developer</strong> based in Dubai, UAE, with a deep focus on building real-world intelligent systems — from conversational AI to computer vision pipelines.
@@ -1008,7 +1211,7 @@
           <p>
             Recently completed my <strong>MSc in Artificial Intelligence and Machine Learning</strong> at the University of Birmingham Dubai, building on a strong foundation from my BSc in Computer Science (AI) at Heriot-Watt University.
           </p>
-          <p>
+          <p id="about-engineering-focus">
             I thrive at the intersection of cutting-edge research and production engineering — whether that's architecting multi-agent frameworks, tuning RAG pipelines for enterprise chatbots, or training YOLO-based vision models for real-world deployment.
           </p>
           <ul class="info-list">
@@ -1039,7 +1242,7 @@
           </ul>
         </div>
 
-        <div class="reveal">
+        <div class="reveal" id="education">
           <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:20px;color:var(--muted);font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;">Education</h3>
           <div class="edu-card">
             <div class="edu-degree">MSc Artificial Intelligence &amp; Machine Learning</div>
@@ -1068,13 +1271,13 @@
         <span class="section-tag">02 / Experience</span>
         <div class="section-line"></div>
       </div>
-      <div class="timeline">
+      <div class="timeline" id="experience-summary">
         <div class="timeline-item">
           <div class="timeline-dot">
             <div class="dot"></div>
             <div class="dot-line"></div>
           </div>
-          <div class="exp-card">
+          <div class="exp-card" id="experience-msbc">
             <div class="exp-header">
               <div>
                 <div class="exp-title">AI Engineer Intern</div>
@@ -1083,10 +1286,10 @@
               <span class="exp-period">Feb 2025 – Apr 2025</span>
             </div>
             <ul class="exp-bullets">
-              <li><strong>Built LLM-powered RAG systems</strong> using OpenAI, NVIDIA NIM, FAISS, and custom retrieval pipelines for enterprise chatbots.</li>
-              <li><strong>Designed a multi-agent AI framework</strong> for task orchestration and intelligent information retrieval.</li>
-              <li><strong>Engineered a real-time conversational AI assistant</strong> integrating STT/TTS (Deepgram, Cartesia, EdgeTTS) with function calling.</li>
-              <li><strong>Automated extraction</strong> from digital &amp; handwritten documents using PaddleOCR and vision-language models.</li>
+              <li id="experience-msbc-rag"><strong>Built LLM-powered RAG systems</strong> using OpenAI, NVIDIA NIM, FAISS, and custom retrieval pipelines for enterprise chatbots.</li>
+              <li id="experience-msbc-agents"><strong>Designed a multi-agent AI framework</strong> for task orchestration and intelligent information retrieval.</li>
+              <li id="experience-msbc-conversational-ai"><strong>Engineered a real-time conversational AI assistant</strong> integrating STT/TTS (Deepgram, Cartesia, EdgeTTS) with function calling.</li>
+              <li id="experience-msbc-ocr"><strong>Automated extraction</strong> from digital &amp; handwritten documents using PaddleOCR and vision-language models.</li>
               <li><strong>Developed a custom GPT model</strong> for the Talent Acquisition team to streamline CV parsing and candidate evaluation.</li>
               <li><strong>Authored AI/ML proof-of-concept documents</strong> outlining feasibility, architecture, and deployment strategies.</li>
             </ul>
@@ -1097,7 +1300,7 @@
           <div class="timeline-dot">
             <div class="dot" style="background: var(--accent2); box-shadow: 0 0 0 2px var(--accent2), 0 0 20px rgba(124,58,237,0.4);"></div>
           </div>
-          <div class="exp-card">
+          <div class="exp-card" id="experience-alyousuf">
             <div class="exp-header">
               <div>
                 <div class="exp-title">Software Developer Intern</div>
@@ -1123,8 +1326,8 @@
         <span class="section-tag">03 / Skills</span>
         <div class="section-line"></div>
       </div>
-      <div class="skills-grid">
-        <div class="skill-category reveal">
+      <div class="skills-grid" id="skills-summary">
+        <div class="skill-category reveal" id="skills-languages">
           <div class="skill-cat-title">Languages</div>
           <div class="skill-tags">
             <span class="skill-tag">Python</span>
@@ -1135,7 +1338,7 @@
             <span class="skill-tag">Dart (Flutter)</span>
           </div>
         </div>
-        <div class="skill-category reveal">
+        <div class="skill-category reveal" id="skills-ai-ml">
           <div class="skill-cat-title">AI &amp; Machine Learning</div>
           <div class="skill-tags">
             <span class="skill-tag">PyTorch</span>
@@ -1150,7 +1353,7 @@
             <span class="skill-tag">Google Gemini</span>
           </div>
         </div>
-        <div class="skill-category reveal">
+        <div class="skill-category reveal" id="skills-frameworks">
           <div class="skill-cat-title">Frameworks &amp; Tools</div>
           <div class="skill-tags">
             <span class="skill-tag">Django</span>
@@ -1163,7 +1366,7 @@
             <span class="skill-tag">REST APIs</span>
           </div>
         </div>
-        <div class="skill-category reveal">
+        <div class="skill-category reveal" id="skills-databases">
           <div class="skill-cat-title">Databases</div>
           <div class="skill-tags">
             <span class="skill-tag">MySQL</span>
@@ -1171,7 +1374,7 @@
             <span class="skill-tag">SQLite</span>
           </div>
         </div>
-        <div class="skill-category reveal">
+        <div class="skill-category reveal" id="skills-specializations">
           <div class="skill-cat-title">AI Specializations</div>
           <div class="skill-tags">
             <span class="skill-tag">Multi-Agent Frameworks</span>
@@ -1199,7 +1402,7 @@
 
   <!-- PROJECTS -->
   <section id="projects">
-    <div class="container">
+    <div class="container" id="projects-summary">
       <div class="section-header reveal">
         <span class="section-tag">04 / Projects</span>
         <div class="section-line"></div>
@@ -1213,7 +1416,7 @@
       <div class="projects-grid" id="projects-grid">
 
         <!-- ── HARDCODED FEATURED PROJECTS ── -->
-        <div class="project-card reveal" data-type="Computer Vision">
+        <div class="project-card reveal" id="project-vigilai" data-type="Computer Vision">
           <div class="project-icon">🚨</div>
           <div>
             <div class="project-title">VigilAI</div>
@@ -1234,7 +1437,7 @@
           </div>
         </div>
 
-        <div class="project-card reveal" data-type="Computer Vision">
+        <div class="project-card reveal" id="project-pedestrian-monitoring-system" data-type="Computer Vision">
           <div class="project-icon">🚶</div>
           <div class="project-title">Pedestrian Monitoring System</div>
           <p class="project-desc">
@@ -1249,7 +1452,7 @@
           </div>
         </div>
 
-        <div class="project-card reveal" data-type="NLP">
+        <div class="project-card reveal" id="project-rag-policy-safety-analyzer" data-type="NLP">
           <div class="project-icon">🛡️</div>
           <div class="project-title">RAG-Based Policy Safety Analyzer</div>
           <p class="project-desc">
@@ -1295,7 +1498,7 @@
           <p class="contact-sub">
             Whether you're looking for an AI Engineer, want to collaborate on a project, or just want to talk ML — my inbox is always open.
           </p>
-          <div class="contact-links">
+          <div class="contact-links" id="contact-links">
             <a class="contact-link" href="mailto:mujtaba.mohimtulay@gmail.com">
               <div class="contact-icon cyan">✉️</div>
               <div>
@@ -1328,13 +1531,13 @@
         </div>
 
         <div class="reveal">
-          <div class="cta-block">
+          <div class="cta-block" id="contact-opportunities">
             <h3>Open to Opportunities</h3>
             <p>Full-time roles, freelance projects, and internships in AI/ML, LLMs, and intelligent systems.</p>
             <a class="btn-primary" href="mailto:mujtaba.mohimtulay@gmail.com" style="display:inline-flex;margin:0 auto;">
               Send a Message →
             </a>
-            <div style="margin-top:28px;padding-top:28px;border-top:1px solid var(--border);">
+            <div id="contact-location" style="margin-top:28px;padding-top:28px;border-top:1px solid var(--border);">
               <div style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:16px;">Based in</div>
               <div style="font-size:1.1rem;font-family:'Syne',sans-serif;font-weight:700;">🇦🇪 Dubai, UAE</div>
               <div style="font-size:0.82rem;color:var(--muted);margin-top:4px;">UAE Golden Visa Holder · Open to remote globally</div>
@@ -1355,6 +1558,8 @@
     </div>
   </footer>
 
+  <script src="scripts/walkthroughSteps.js"></script>
+  <script src="scripts/aiWalkthrough.js"></script>
   <script>
     /* ── SCROLL REVEAL ── */
     const observer = new IntersectionObserver((entries) => {
@@ -1446,6 +1651,7 @@
 
       const card = document.createElement('div');
       card.className = 'project-card reveal';
+      card.id = getUniqueProjectId(projectIdFromName(name));
       card.dataset.type = type;
 
       // Stack tags HTML
@@ -1476,6 +1682,30 @@
       `;
 
       return card;
+    }
+
+    function projectIdFromName(name) {
+      const slug = String(name || 'untitled-project')
+        .toLowerCase()
+        .normalize('NFKD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/&/g, ' and ')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+
+      return `project-${slug || 'untitled-project'}`;
+    }
+
+    function getUniqueProjectId(baseId) {
+      let id = baseId;
+      let count = 2;
+
+      while (document.getElementById(id)) {
+        id = `${baseId}-${count}`;
+        count += 1;
+      }
+
+      return id;
     }
 
     function escapeHTML(str) {
